@@ -95,3 +95,14 @@ take_object(X) :-
   retract(location(X, _)),
   asserta(have(X)),
   write('Taken '), write(X), nl.
+
+put_down(Thing) :-
+  have(Thing),
+  here(Place),
+  retract(have(Thing)),
+  assertz(location(Thing, Place)),
+  write(Thing), write('left in '), write(Place), nl.
+put_down(Thing) :-
+  write('Can''t put '), write(Thing), nl,
+  fail.
+
