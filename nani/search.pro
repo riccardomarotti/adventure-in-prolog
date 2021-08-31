@@ -106,3 +106,10 @@ put_down(Thing) :-
   write('Can''t put '), write(Thing), nl,
   fail.
 
+inventory :-
+  have(X),
+  tab(2),
+  write(X),
+  nl.
+  fail.
+inventory.
