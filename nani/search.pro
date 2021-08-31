@@ -25,7 +25,11 @@ edible(crackers).
 
 tastes_yucky(broccoli).
 
+:- dynamic(turned_off/1).
 turned_off(flashlight).
+turned_off(apple).
+:- dynamic(turned_on/1).
+turned_on(nothing).
 :- dynamic(here/1).
 here(kitchen).
 
@@ -113,3 +117,25 @@ inventory :-
   nl.
   fail.
 inventory.
+
+turn_on(X) :-
+  have(X),
+  turned_on(X),
+  write(X), write(' is already on.'), nl.
+turn_on(X) :-
+  have(X),
+  turned_off(X),
+  retract(turned_off(X)),
+  assertz(turned_on(X)),
+  write(X), write(' turned on.'), nl.
+
+turn_off(X) :-
+  have(X),
+  turned_off(X),
+  write(X), write(' is already off.').
+turn_off(X) :-
+  have(X),
+  turned_on(X),
+  retract(turned_on(X)),
+  assertz(turned_off(X)),
+  write(X), write(' turned off.'), nl.
