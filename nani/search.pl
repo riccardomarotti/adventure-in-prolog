@@ -93,7 +93,7 @@ take(X) :-
 
 can_take(Thing) :-
   here(Place),
-  location(Thing, Place).
+  is_contained_in(Thing, Place).
 can_take(Thing) :-
   write('There is no '), write(Thing), write(' here.'), nl,
   fail.
@@ -117,7 +117,7 @@ inventory :-
   have(X),
   tab(2),
   write(X),
-  nl.
+  nl,
   fail.
 inventory.
 
@@ -142,3 +142,9 @@ turn_off(X) :-
   retract(turned_on(X)),
   assertz(turned_off(X)),
   write(X), write(' turned off.'), nl.
+
+is_contained_in(T1, T2) :-
+  location(T1, T2).
+is_contained_in(T1, T2) :-
+  location(X, T2),
+  is_contained_in(T1, X).
